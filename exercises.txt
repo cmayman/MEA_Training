@@ -1,0 +1,54 @@
+1. Create a file of numbers called numbers.txt, one number per line, sum only the even numbers
+and print the result to STDOUT.
+
+Example data:
+7
+32
+4
+9
+3
+2
+
+Expected result: 38
+
+2. Expand the previous exercise to conditionally check that the filename has been supplied, only if it has
+should the bash script attempt to sum the numbers in the file.
+
+3. Using the cat command, print out a files contents and its line numbers to STDOUT. Use the man cat 
+command to see the man pages and choose an appropriate command flag to help you achieve this.
+
+4. Using a loop, iterate through a files lines printing each line with a line number at the start.
+
+Example data file:
+Hello world,
+this is
+my file
+with multiple lines.
+
+Result:
+1 | Hello world,
+2 | this is
+3 | my file
+4 | with multiple lines.
+
+5. (Stretch goal) Research how to print out the line numbers and contents of a file using the awk command. 
+awk is a utility for text based manipulation, almost a scripting language in and of itself but 
+designed for text only. Redesign the previous script to use awk.
+
+6. Create a file containing the following data. Fields are delimited by a colon.
+
+country:capital:gdp (USD):debt (USD)
+USA:Washington, D.C:21430000000000:31000000000000
+UK:London:2800000000000:2300000000000
+France:Paris:2900000000000:3300000000000
+Germany:Berlin:3800000000000:2400000000000
+
+a) Use the `tail` command to get only data after the first header line and print this data to STDOUT
+
+b) Create a script that accepts a file containing the data
+that will sort the data alphabetically by country name and then print it to the console with the header
+
+c) Create a script that prints out each country with its debt as a percentage of GDP
+
+7. Write a script to convert an inputted date string "24/4/2022" to a full string: 24th April 2022
+(Remember you can use functions to partition your code into sections)

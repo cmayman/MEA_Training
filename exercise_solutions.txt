@@ -1,0 +1,93 @@
+1. Create a file of numbers called numbers.txt, one number per line, sum only the even numbers
+and print the result to STDOUT.
+
+#!/bin/bash
+FILE=$1
+
+sum=0
+while read -r LINE; do
+      if [ 0 -eq $(($LINE % 2)) ]; then
+             sum=$(( sum + $LINE))
+      fi
+done < $FILE
+echo $sum
+
+- $1 represents the first argument passed to the command when called, i.e., the `file.txt` in `command.sh file.txt`
+
+2. Expand the previous exercise to conditionally check that the filename has been supplied, only if it has
+should the bash script attempt to sum the numbers in the file.
+
+#!/bin/bash
+FILE=$1
+if [ -z "$FILE" ]; then
+        echo "Must supply a file"
+else
+        echo "Filename supplied: $FILE"
+        sum=0
+        while read -r LINE; do
+                if [ 0 -eq $(($LINE % 2)) ]; then
+                        sum=$(( sum + $LINE))
+                fi
+        done < $FILE
+        echo $sum
+fi
+
+3. Using the cat command, print out a files contents and its line numbers to STDOUT. Use the man cat 
+command to see the man pages and choose an appropriate command flag to help you achieve this.
+
+cat -n file.txt
+
+4. Using a loop, iterate through a files lines printing each line with a line number at the start.
+
+#!/bin/bash
+FILE=$1
+if [ -z "$FILE" ]; then
+        echo "Must supply a file"
+else
+        echo "Filename supplied: $FILE"
+        lineno=1
+        while read -r LINE; do
+                echo "$lineno | $LINE"
+                lineno=$((lineno + 1))
+        done < $FILE
+fi
+
+5. (Stretch goal) Research how to print out the line numbers and contents of a file using the awk command. 
+awk is a utility for text based manipulation, almost a scripting language in and of itself but 
+designed for text only. Redesign the previous script to use awk.
+
+awk '{print NR,$0 }' file.txt
+
+- `print` prints a record (a line by default), `NR` overrides the default output to be the line numbers, 
+  the `$0` is saying to include the lines content
+
+6. Create a file containing the following data. Fields are delimited by a colon.
+
+a) Use the `tail` command to get only data after the first header line and print this data to STDOUT
+
+echo "$(tail -n +2 data.txt)"
+
+b) Create a script that accepts a file containing the data
+that will sort the data alphabetically by country name and then print it to the console with the header
+
+#!/bin/bash
+FILE=$1
+HEADER=$(head -n 1 $FILE)
+SORTED_DATA=$(tail -n +2 $FILE | sort -t: -k1)
+echo $HEADER
+echo "$SORTED_DATA"
+
+c) Create a script that prints out each country with its debt as a percentage of GDP
+
+#!/bin/bash
+FILE=$1
+DATA=$(tail -n +2 $FILE)
+while read -r LINE; do
+        country=$(echo $LINE | cut -d: -f1)
+        gdp=$(echo $LINE | cut -d: -f3)
+        debt=$(echo $LINE | cut -d: -f4)
+        debt_as_percent=$((100 * $debt / $gdp))
+        echo "$country with GDP \$$gdp has a debt of \$$debt. This debt level is $debt_as_percent% of GDP"
+done << EOF
+$DATA
+EOF

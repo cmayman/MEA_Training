@@ -1,0 +1,18 @@
+Additional exercise, a bit simpler than ones in the exercise file, but also represents something important. The recombination of multiple files.
+
+Run the following commands to create 3 files, each with a single number inside them:
+
+echo "1" > file1.txt
+echo "2" > file2.txt
+echo "3" > file3.txt
+
+Use the cat command to combine the files into a single file called file4.txt.
+
+The resulting file should then have the contents, verify with cat file4.txt:
+
+  
+1
+2
+3
+
+Once done, use rm file[1-4].txt to remove the files
